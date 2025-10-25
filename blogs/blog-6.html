@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thao tác DOM với JavaScript | Đặng Hữu Phước</title>
+    <meta name="keywords" content="lập trình, JavaScript, DOM, học JavaScript, portfolio, lập trình viên, HUTECH">
+    <meta name="description" content="Hiểu và thực hành thao tác DOM với JavaScript — từ chọn phần tử, thay đổi nội dung, thuộc tính, đến tạo và xóa phần tử động.">
+    <meta name="author" content="Đặng Hữu Phước">
+
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+
+    <style>
+        /* ==== Giao diện tổng thể ==== */
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* ==== Navbar ==== */
+        #mainNav {
+            background: #222;
+            transition: background 0.3s;
+        }
+
+        #mainNav .navbar-brand {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff !important;
+        }
+
+        #mainNav .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        #mainNav .nav-link:hover,
+        #mainNav .nav-link.active {
+            color: #007bff !important;
+        }
+
+        /* ==== Blog Section ==== */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title h3 {
+            font-family: "Courier New", monospace;
+            font-size: 2rem;
+            color: #000;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-title ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .section-title li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .blog-content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .blog-content h4,
+        .blog-content h5 {
+            color: #007bff;
+            font-weight: 600;
+            margin-top: 25px;
+            font-family: "Courier New", monospace;
+        }
+
+        .blog-content pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        .blog-content code {
+            color: #f1fa8c;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* ==== Footer ==== */
+        .copyrights {
+            background: #222;
+            color: #ccc;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* ==== Hiệu ứng Scroll-to-top ==== */
+        #scroll-to-top {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            text-align: center;
+            line-height: 45px;
+            display: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #scroll-to-top:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Đặng Hữu Phước</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html#home">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#project">Dự án</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../index.html#blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="blog" class="section">
+        <div class="container">
+            <div class="section-title text-left">
+                <h3>Thao tác DOM với JavaScript</h3>
+                <ul>
+                    <li><i class="fa fa-user"></i> bởi admin</li>
+                    <li><i class="fa fa-calendar"></i> 17/10/2025</li>
+                </ul>
+            </div>
+
+            <div class="blog-content">
+                <h5>1. Giới thiệu về DOM</h5>
+                <p><b>DOM (Document Object Model)</b> là mô hình đối tượng tài liệu mà trình duyệt tạo ra khi tải một trang web. Nó biểu diễn toàn bộ HTML dưới dạng cây (tree structure), cho phép JavaScript truy cập, thay đổi hoặc xóa các phần tử.</p>
+                <p>Hiểu đơn giản: HTML là nội dung tĩnh, còn JavaScript thông qua DOM giúp trang web trở nên “sống động”.</p>
+
+                <h5>2. Chọn phần tử DOM</h5>
+                <p>Có nhiều cách để chọn phần tử HTML bằng JavaScript:</p>
+                <pre><code>// Cách 1: Chọn theo ID
+const title = document.getElementById("title");
+
+// Cách 2: Chọn theo class
+const items = document.getElementsByClassName("item");
+
+// Cách 3: Chọn theo tag
+const divs = document.getElementsByTagName("div");
+
+// Cách 4: Sử dụng querySelector hiện đại
+const button = document.querySelector(".btn-primary");
+const allButtons = document.querySelectorAll(".btn");</code></pre>
+                <p><b>Gợi ý:</b> Nên dùng <code>querySelector</code> và <code>querySelectorAll</code> vì chúng linh hoạt và hiện đại hơn.</p>
+
+                <h5>3. Thay đổi nội dung và thuộc tính</h5>
+                <p>JavaScript có thể cập nhật text, HTML hoặc thuộc tính của phần tử:</p>
+                <pre><code>// Thay đổi nội dung văn bản
+document.getElementById("title").textContent = "Xin chào DOM!";
+
+// Thay đổi nội dung HTML
+document.getElementById("content").innerHTML = "&lt;b&gt;Đây là đoạn văn mới!&lt;/b&gt;";
+
+// Thay đổi thuộc tính
+document.querySelector("img").src = "images/new-photo.jpg";</code></pre>
+
+                <h5>4. Tạo và xóa phần tử động</h5>
+                <p>DOM cho phép tạo thêm các phần tử mới mà không cần reload trang:</p>
+                <pre><code>const newItem = document.createElement("li");
+newItem.textContent = "Phần tử mới";
+document.querySelector("ul").appendChild(newItem);
+
+// Xóa phần tử
+const itemToRemove = document.querySelector("li:first-child");
+itemToRemove.remove();</code></pre>
+
+                <h5>5. Thao tác với CSS bằng DOM</h5>
+                <p>Bạn có thể thay đổi giao diện thông qua thuộc tính <code>style</code> hoặc thêm/bớt class:</p>
+                <pre><code>const box = document.querySelector(".box");
+box.style.backgroundColor = "lightblue";
+box.style.padding = "10px";
+
+// Thêm / Xóa class
+box.classList.add("active");
+box.classList.remove("hidden");</code></pre>
+
+                <h5>6. Lắng nghe sự kiện (Event Listener)</h5>
+                <p>Sự kiện (event) giúp người dùng tương tác với trang, ví dụ khi click chuột hoặc nhập dữ liệu:</p>
+                <pre><code>const btn = document.querySelector("#clickMe");
+btn.addEventListener("click", () => {
+    alert("Bạn vừa click vào nút!");
+});</code></pre>
+                <p>Có thể lắng nghe nhiều loại sự kiện khác nhau như <code>mouseover</code>, <code>keydown</code>, <code>submit</code>,…</p>
+
+                <h5>7. Kết hợp DOM và Logic động</h5>
+                <p>Bạn có thể dùng DOM để tạo hiệu ứng nhỏ hoặc chức năng tương tác. Ví dụ: đổi màu nền ngẫu nhiên khi click:</p>
+                <pre><code>const btn = document.querySelector("#colorBtn");
+btn.addEventListener("click", () => {
+    const color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    document.body.style.backgroundColor = color;
+});</code></pre>
+
+                <h5>8. Tổng kết</h5>
+                <p>DOM là nền tảng quan trọng của lập trình web. Thành thạo thao tác DOM giúp bạn:</p>
+                <ul>
+                    <li>Tạo trang web tương tác, sinh động.</li>
+                    <li>Xây dựng hiệu ứng hoặc component UI.</li>
+                    <li>Hiểu sâu hơn khi học framework như React, Vue, hay Angular.</li>
+                </ul>
+
+                <p><b>Lời khuyên:</b> Hãy thực hành thật nhiều với các bài nhỏ như: bật/tắt đèn, đếm số lần click, thêm phần tử vào danh sách. Việc nắm vững DOM sẽ giúp bạn tiến xa hơn rất nhiều trong JavaScript.</p>
+            </div>
+
+            <div class="back-to-home">
+                <a href="../index.html#blog" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left"></i> Quay lại Blog</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="copyrights">
+        <p>Bản quyền © 2025 - Thiết kế bởi <b>Đặng Hữu Phước</b></p>
+    </div>
+
+    <div id="scroll-to-top"><i class="fa fa-angle-up"></i></div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Navbar đổi màu khi cuộn
+        $(window).scroll(function () {
+            if ($("#mainNav").offset().top > 50) {
+                $("#mainNav").css("background", "#111");
+            } else {
+                $("#mainNav").css("background", "#222");
+            }
+        });
+
+        // Nút scroll to top
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 200) {
+                $('#scroll-to-top').fadeIn();
+            } else {
+                $('#scroll-to-top').fadeOut();
+            }
+        });
+
+        $('#scroll-to-top').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 800);
+            return false;
+        });
+    </script>
+</body>
+
+</html>

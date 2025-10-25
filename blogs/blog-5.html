@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Java Collections Framework | Đặng Hữu Phước</title>
+    <meta name="keywords"
+        content="JavaScript, async await, lập trình bất đồng bộ, Promise, portfolio, HUTECH, hướng dẫn JS cơ bản">
+    <meta name="description"
+        content="Hướng dẫn chi tiết về async/await trong JavaScript: nguyên lý hoạt động, ví dụ thực tế và cách xử lý bất đồng bộ hiệu quả.">
+    <meta name="author" content="Đặng Hữu Phước">
+
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+
+    <style>
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Navbar */
+        #mainNav {
+            background: #222;
+            transition: background 0.3s;
+        }
+
+        #mainNav .navbar-brand {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff !important;
+        }
+
+        #mainNav .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        #mainNav .nav-link:hover,
+        #mainNav .nav-link.active {
+            color: #007bff !important;
+        }
+
+        /* Blog Section */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title h3 {
+            font-family: "Courier New", monospace;
+            font-size: 2rem;
+            color: #000;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-title ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .section-title li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .blog-content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .blog-content h5 {
+            color: #007bff;
+            font-weight: 600;
+            margin-top: 25px;
+            font-family: "Courier New", monospace;
+        }
+
+        .blog-content pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        .blog-content code {
+            color: #f1fa8c;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .copyrights {
+            background: #222;
+            color: #ccc;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        #scroll-to-top {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            text-align: center;
+            line-height: 45px;
+            display: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #scroll-to-top:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body id="page-top" class="politics_version">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Đặng Hữu Phước</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                Menu
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="../index.html#home">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="../index.html#about">Giới thiệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="../index.html#project">Dự án</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="../index.html#blog">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section wb">
+        <div class="container">
+            <div class="section-title text-left">
+                <h3>Java Collections Framework</h3>
+                <ul>
+                    <li>bởi admin</li>
+                    <li>16/10/2025</li>
+                </ul>
+            </div>
+
+            <div class="blog-content">
+                <h5>Giới thiệu về Collections Framework</h5>
+                <p>
+                    <b>Java Collections Framework (JCF)</b> là một tập hợp các lớp và giao diện giúp bạn lưu trữ, truy cập, 
+                    và thao tác dữ liệu một cách linh hoạt. Thay vì phải tự cài đặt cấu trúc dữ liệu như mảng, danh sách, 
+                    cây hoặc bảng băm, Java đã cung cấp sẵn cho lập trình viên một hệ thống chuẩn, mạnh mẽ và dễ mở rộng.
+                </p>
+
+                <h6>1. Cấu trúc tổng thể</h6>
+                <p>
+                    Hệ thống Collections trong Java gồm 3 nhóm chính:
+                </p>
+                <ul>
+                    <li><b>List</b> – Lưu trữ các phần tử có thứ tự, cho phép trùng lặp.</li>
+                    <li><b>Set</b> – Lưu trữ các phần tử duy nhất, không trùng lặp.</li>
+                    <li><b>Map</b> – Lưu trữ dữ liệu theo cặp <code>key-value</code>.</li>
+                </ul>
+
+                <h6>2. List – Danh sách có thứ tự</h6>
+                <p>
+                    <b>List</b> là lựa chọn lý tưởng khi bạn muốn lưu dữ liệu có thể trùng lặp và duy trì thứ tự thêm phần tử. 
+                    Hai lớp phổ biến nhất là <b>ArrayList</b> và <b>LinkedList</b>.
+                </p>
+
+                <pre><code>import java.util.*;
+
+public class ViDuList {
+    public static void main(String[] args) {
+        List&lt;String&gt; danhSach = new ArrayList&lt;&gt;();
+        danhSach.add("Java");
+        danhSach.add("Python");
+        danhSach.add("C#");
+        danhSach.add("Java");
+
+        for (String item : danhSach) {
+            System.out.println(item);
+        }
+    }
+}</code></pre>
+
+                <p>
+                    Kết quả:
+                </p>
+                <pre><code>Java
+Python
+C#
+Java</code></pre>
+
+                <p>
+                    <b>ArrayList</b> nhanh khi truy cập ngẫu nhiên (theo chỉ số), trong khi <b>LinkedList</b> 
+                    hiệu quả hơn khi thêm/xóa phần tử ở giữa danh sách.
+                </p>
+
+                <h6>3. Set – Tập hợp không trùng lặp</h6>
+                <p>
+                    <b>Set</b> được dùng khi bạn muốn đảm bảo mỗi phần tử chỉ xuất hiện một lần. 
+                    Phổ biến nhất là <b>HashSet</b> và <b>TreeSet</b>.
+                </p>
+
+                <pre><code>import java.util.*;
+
+public class ViDuSet {
+    public static void main(String[] args) {
+        Set&lt;String&gt; tapHop = new HashSet&lt;&gt;();
+        tapHop.add("Java");
+        tapHop.add("Python");
+        tapHop.add("Java"); // bị bỏ qua
+
+        for (String item : tapHop) {
+            System.out.println(item);
+        }
+    }
+}</code></pre>
+
+                <p>
+                    <b>TreeSet</b> sắp xếp phần tử theo thứ tự tự nhiên (hoặc comparator tùy chỉnh), 
+                    trong khi <b>HashSet</b> tập trung vào tốc độ truy xuất.
+                </p>
+
+                <h6>4. Map – Bản đồ khóa/giá trị</h6>
+                <p>
+                    <b>Map</b> khác biệt vì nó lưu dữ liệu theo cặp <code>key → value</code>. 
+                    Mỗi khóa là duy nhất, và bạn có thể truy xuất giá trị bằng khóa.
+                </p>
+
+                <pre><code>import java.util.*;
+
+public class ViDuMap {
+    public static void main(String[] args) {
+        Map&lt;Integer, String&gt; hocVien = new HashMap&lt;&gt;();
+        hocVien.put(1, "Phước");
+        hocVien.put(2, "Nam");
+        hocVien.put(3, "Huy");
+
+        for (Map.Entry&lt;Integer, String&gt; entry : hocVien.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
+    }
+}</code></pre>
+
+                <p>
+                    Ngoài <b>HashMap</b>, ta có thể dùng <b>TreeMap</b> (sắp xếp theo khóa) hoặc <b>LinkedHashMap</b> 
+                    (duy trì thứ tự thêm phần tử).
+                </p>
+
+                <h6>5. Collections Utility Class</h6>
+                <p>
+                    Lớp <b>Collections</b> cung cấp nhiều hàm tĩnh hữu ích như:
+                </p>
+                <pre><code>Collections.sort(list);
+Collections.reverse(list);
+Collections.shuffle(list);
+Collections.max(list);
+Collections.min(list);</code></pre>
+
+                <p>
+                    Những phương thức này giúp thao tác danh sách nhanh hơn và nhất quán, thay vì tự viết thuật toán.
+                </p>
+
+                <h6>6. Khi nào nên dùng loại nào?</h6>
+                <ul>
+                    <li><b>ArrayList</b>: Khi cần truy cập nhanh theo chỉ số.</li>
+                    <li><b>LinkedList</b>: Khi cần thêm/xóa thường xuyên.</li>
+                    <li><b>HashSet</b>: Khi cần loại bỏ phần tử trùng lặp nhanh chóng.</li>
+                    <li><b>TreeSet</b>: Khi cần tập hợp có sắp xếp.</li>
+                    <li><b>HashMap</b>: Khi cần tra cứu giá trị theo khóa với hiệu suất cao.</li>
+                </ul>
+
+                <h6>7. Tổng kết</h6>
+                <p>
+                    Java Collections Framework là công cụ cốt lõi giúp quản lý dữ liệu hiệu quả, 
+                    linh hoạt và dễ bảo trì. Hiểu đúng và chọn đúng cấu trúc sẽ giúp mã nguồn 
+                    của bạn gọn gàng, dễ đọc và tối ưu hơn trong mọi dự án.
+                </p>
+            </div>
+
+            <div class="back-to-home">
+                <a href="../index.html#blog" class="btn btn-primary btn-sm">Quay lại Blog</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="copyrights">
+        <div class="container">
+            <div class="footer-distributed">
+                <div class="footer-left">
+                    <p class="footer-company-name">Bản quyền thuộc về &copy; 2025 - Thiết kế bởi: Đặng Hữu Phước</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll To Top -->
+    <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+
+    <script src="../js/all.js"></script>
+    <script src="../js/jquery.mobile.customized.min.js"></script>
+    <script src="../js/jquery.easing.1.3.js"></script>
+    <script src="../js/parallaxie.js"></script>
+    <script src="../js/headline.js"></script>
+    <script src="../js/jqBootstrapValidation.js"></script>
+    <script src="../js/contact_me.js"></script>
+    <script src="../js/custom.js"></script>
+    <script src="../js/jquery.vide.js"></script>
+</body>
+</html>

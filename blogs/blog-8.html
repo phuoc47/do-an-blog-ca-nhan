@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Những tính năng mới trong ES6 JavaScript | Đặng Hữu Phước</title>
+    <meta name="keywords"
+        content="lập trình, JavaScript, ES6, portfolio, lập trình viên, HUTECH, ECMAScript, arrow function, let const, destructuring">
+    <meta name="description"
+        content="Khám phá các tính năng mới trong ES6: let/const, arrow function, template string, destructuring, spread, rest, class, và promise.">
+    <meta name="author" content="Đặng Hữu Phước">
+
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+
+    <style>
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        #mainNav {
+            background: #222;
+            transition: background 0.3s;
+        }
+
+        #mainNav .navbar-brand {
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #fff !important;
+        }
+
+        #mainNav .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+        }
+
+        #mainNav .nav-link:hover {
+            color: #007bff !important;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title h3 {
+            font-family: "Courier New", monospace;
+            font-size: 2rem;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .section-title ul {
+            list-style: none;
+            padding: 0;
+            color: #777;
+        }
+
+        .section-title li {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .blog-content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .blog-content h5 {
+            color: #007bff;
+            font-weight: 600;
+            margin-top: 25px;
+        }
+
+        pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        code {
+            color: #f1fa8c;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .copyrights {
+            background: #222;
+            color: #ccc;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        #scroll-to-top {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            text-align: center;
+            line-height: 45px;
+            display: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #scroll-to-top:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Đặng Hữu Phước</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html#home">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#project">Dự án</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../index.html#blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="blog" class="section">
+        <div class="container">
+            <div class="section-title text-left">
+                <h3>Những tính năng mới trong ES6 JavaScript</h3>
+                <ul>
+                    <li><i class="fa fa-user"></i> bởi admin</li>
+                    <li><i class="fa fa-calendar"></i> 20/10/2025</li>
+                </ul>
+            </div>
+
+            <div class="blog-content">
+                <h5>Giới thiệu</h5>
+                <p>ECMAScript 2015 (hay ES6) là một bước ngoặt quan trọng của JavaScript, mang lại hàng loạt cú pháp và tính năng hiện đại giúp code dễ đọc, ngắn gọn, và mạnh mẽ hơn. Việc hiểu và áp dụng ES6 là yêu cầu cơ bản cho mọi lập trình viên web hiện nay.</p>
+
+                <h5>1. let và const – Khai báo biến hiện đại</h5>
+                <p>Trước ES6, JavaScript chỉ có từ khóa <code>var</code> – dễ gây lỗi vì phạm vi biến (scope) không rõ ràng. Nay bạn nên dùng <code>let</code> và <code>const</code>:</p>
+                <pre><code>let count = 10;     // có thể thay đổi
+const pi = 3.14;    // không thể gán lại
+
+if (true) {
+    let x = 5;
+    console.log(x); // ✅ 5
+}
+// console.log(x); ❌ Lỗi – ngoài phạm vi</code></pre>
+                <p><b>Lưu ý:</b> Dùng <code>const</code> cho giá trị không đổi, <code>let</code> cho biến thay đổi. Hạn chế dùng <code>var</code>.</p>
+
+                <h5>2. Arrow Function – Hàm ngắn gọn</h5>
+                <p>Hàm mũi tên giúp cú pháp ngắn và tự động “bind” ngữ cảnh <code>this</code>:</p>
+                <pre><code>// Trước đây
+function sayHello(name) {
+    return "Xin chào, " + name;
+}
+
+// ES6
+const sayHello = name => `Xin chào, ${name}`;
+console.log(sayHello("Phước"));</code></pre>
+
+                <h5>3. Template String – Chuỗi có biến nội suy</h5>
+                <p>Thay vì phải nối chuỗi rườm rà, ES6 cho phép dùng dấu <code>`</code> để viết chuỗi dễ hơn:</p>
+                <pre><code>const ten = "Phước";
+const tuoi = 21;
+console.log(`Tôi là ${ten}, năm nay ${tuoi} tuổi.`);</code></pre>
+
+                <h5>4. Destructuring – Rút gọn khi trích xuất dữ liệu</h5>
+                <p>Thay vì truy cập từng thuộc tính, bạn có thể “bóc tách” trực tiếp:</p>
+                <pre><code>const nguoi = { ten: "Alex", tuoi: 25, diachi: "TP.HCM" };
+const { ten, tuoi } = nguoi;
+console.log(ten, tuoi);</code></pre>
+
+                <h5>5. Spread & Rest – Làm việc với mảng và tham số linh hoạt</h5>
+                <p><b>Spread (...):</b> Dùng để sao chép hoặc gộp mảng.</p>
+                <pre><code>const a = [1, 2, 3];
+const b = [...a, 4, 5];
+console.log(b); // [1, 2, 3, 4, 5]</code></pre>
+
+                <p><b>Rest (...):</b> Gom nhiều tham số thành một mảng.</p>
+                <pre><code>function tong(...nums) {
+    return nums.reduce((a, b) => a + b, 0);
+}
+console.log(tong(1, 2, 3, 4)); // 10</code></pre>
+
+                <h5>6. Classes – Lập trình hướng đối tượng trong JavaScript</h5>
+                <p>ES6 hỗ trợ cú pháp class tương tự Java hoặc C#, giúp code dễ hiểu hơn:</p>
+                <pre><code>class Nguoi {
+    constructor(ten, tuoi) {
+        this.ten = ten;
+        this.tuoi = tuoi;
+    }
+    chao() {
+        console.log(`Xin chào, tôi là ${this.ten}`);
+    }
+}
+const phuoc = new Nguoi("Phước", 21);
+phuoc.chao();</code></pre>
+
+                <h5>7. Promise – Giải pháp xử lý bất đồng bộ</h5>
+                <p>Thay vì callback lồng nhau (“callback hell”), ES6 mang đến <b>Promise</b> – giúp xử lý tuần tự, rõ ràng hơn:</p>
+                <pre><code>const layDuLieu = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("Dữ liệu đã tải xong!"), 2000);
+});
+
+layDuLieu.then(res => console.log(res));</code></pre>
+
+                <h5>8. Default Parameters – Giá trị mặc định cho hàm</h5>
+                <pre><code>function greet(name = "Khách") {
+    console.log(`Xin chào, ${name}!`);
+}
+greet(); // Xin chào, Khách!</code></pre>
+
+                <h5>9. Kết luận</h5>
+                <p>ES6 không chỉ cải thiện hiệu suất, mà còn làm JavaScript trở nên “hiện đại” hơn, gần gũi với các ngôn ngữ khác. Hãy luyện tập viết lại code cũ bằng cú pháp ES6 – bạn sẽ thấy sự khác biệt lớn trong tốc độ và trải nghiệm lập trình.</p>
+            </div>
+
+            <div class="back-to-home">
+                <a href="../index.html#blog" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left"></i> Quay lại Blog</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="copyrights">
+        <p>Bản quyền © 2025 - Thiết kế bởi <b>Đặng Hữu Phước</b></p>
+    </div>
+
+    <div id="scroll-to-top"><i class="fa fa-angle-up"></i></div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(window).scroll(function () {
+            if ($("#mainNav").offset().top > 50) {
+                $("#mainNav").css("background", "#111");
+            } else {
+                $("#mainNav").css("background", "#222");
+            }
+        });
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 200) {
+                $('#scroll-to-top').fadeIn();
+            } else {
+                $('#scroll-to-top').fadeOut();
+            }
+        });
+
+        $('#scroll-to-top').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 800);
+            return false;
+        });
+    </script>
+</body>
+
+</html>

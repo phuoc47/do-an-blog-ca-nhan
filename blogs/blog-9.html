@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Đa luồng trong Java | Đặng Hữu Phước</title>
+    <meta name="keywords" content="Java, multithreading, concurrency, lập trình, lập trình viên, HUTECH">
+    <meta name="description"
+        content="Tìm hiểu chi tiết về đa luồng trong Java: Thread, Runnable, đồng bộ hóa, Thread Pool, Executor và kỹ thuật tối ưu hiệu suất.">
+    <meta name="author" content="Đặng Hữu Phước">
+
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+
+    <style>
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        #mainNav {
+            background: #222;
+            transition: background 0.3s;
+        }
+
+        #mainNav .navbar-brand {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff !important;
+        }
+
+        #mainNav .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+        }
+
+        #mainNav .nav-link:hover,
+        #mainNav .nav-link.active {
+            color: #007bff !important;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title h3 {
+            font-family: "Courier New", monospace;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .section-title ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .section-title li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .blog-content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .blog-content h5 {
+            color: #007bff;
+            font-weight: 600;
+            margin-top: 25px;
+            font-family: "Courier New", monospace;
+        }
+
+        pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        code {
+            color: #f1fa8c;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .copyrights {
+            background: #222;
+            color: #ccc;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        #scroll-to-top {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            text-align: center;
+            line-height: 45px;
+            display: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #scroll-to-top:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Đặng Hữu Phước</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html#home">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#project">Dự án</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../index.html#blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="blog" class="section">
+        <div class="container">
+            <div class="section-title text-left">
+                <h3>Đa luồng trong Java</h3>
+                <ul>
+                    <li><i class="fa fa-user"></i> bởi admin</li>
+                    <li><i class="fa fa-calendar"></i> 20/10/2025</li>
+                </ul>
+            </div>
+
+            <div class="blog-content">
+                <h5>Giới thiệu</h5>
+                <p>Đa luồng (<b>Multithreading</b>) là một trong những tính năng mạnh mẽ nhất của Java, cho phép chương trình
+                    thực hiện nhiều tác vụ cùng lúc. Điều này giúp cải thiện hiệu năng, tận dụng tối đa tài nguyên CPU và nâng cao trải nghiệm người dùng trong các ứng dụng lớn như game, xử lý ảnh, hay ứng dụng web nhiều yêu cầu đồng thời.</p>
+
+                <h5>1. Tổng quan về đa luồng</h5>
+                <p>Một chương trình thông thường chỉ chạy trên một luồng (Thread chính). Với đa luồng, ta có thể chia nhỏ công việc thành nhiều phần và thực thi song song. Mỗi luồng là một tiến trình con độc lập nhưng chia sẻ tài nguyên với chương trình chính.</p>
+
+                <h5>2. Cách tạo luồng trong Java</h5>
+                <p>Có hai cách phổ biến để tạo luồng trong Java:</p>
+                <ul>
+                    <li>Kế thừa từ lớp <b>Thread</b></li>
+                    <li>Cài đặt giao diện <b>Runnable</b></li>
+                </ul>
+
+                <h6>Ví dụ 1: Kế thừa lớp Thread</h6>
+                <pre><code>class MyThread extends Thread {
+    public void run() {
+        System.out.println("Luồng đang chạy: " + Thread.currentThread().getName());
+    }
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start(); // Bắt đầu luồng
+    }
+}</code></pre>
+
+                <h6>Ví dụ 2: Cài đặt giao diện Runnable</h6>
+                <pre><code>class MyRunnable implements Runnable {
+    public void run() {
+        System.out.println("Đang chạy Runnable: " + Thread.currentThread().getName());
+    }
+
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new MyRunnable());
+        t1.start();
+    }
+}</code></pre>
+
+                <p><b>Lưu ý:</b> Khi sử dụng <code>start()</code>, Java sẽ tạo luồng mới. Nếu bạn gọi trực tiếp <code>run()</code>,
+                    mã sẽ chạy trong luồng hiện tại — không có đa luồng thực sự.</p>
+
+                <h5>3. So sánh Thread và Runnable</h5>
+                <ul>
+                    <li><b>Thread:</b> dùng khi bạn cần mở rộng hành vi của luồng.</li>
+                    <li><b>Runnable:</b> linh hoạt hơn, vì Java không hỗ trợ đa kế thừa — nên dùng khi bạn muốn kế thừa lớp khác.</li>
+                </ul>
+
+                <h5>4. Đồng bộ hóa (Synchronization)</h5>
+                <p>Khi nhiều luồng truy cập chung vào cùng một tài nguyên (biến, file, database), cần đồng bộ hóa để tránh xung đột dữ liệu.</p>
+                <pre><code>class Counter {
+    private int count = 0;
+
+    public synchronized void increment() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}</code></pre>
+                <p>Từ khóa <code>synchronized</code> đảm bảo rằng tại một thời điểm, chỉ một luồng có thể truy cập vào phương thức.</p>
+
+                <h5>5. Thread Pool và Executor</h5>
+                <p>Trong thực tế, việc tạo quá nhiều luồng riêng lẻ gây tốn tài nguyên. Java cung cấp cơ chế quản lý luồng thông minh thông qua <b>ExecutorService</b>:</p>
+                <pre><code>import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ThreadPoolExample {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+
+        for (int i = 1; i <= 5; i++) {
+            int task = i;
+            executor.execute(() -> {
+                System.out.println("Đang xử lý tác vụ " + task + " bởi " + Thread.currentThread().getName());
+            });
+        }
+
+        executor.shutdown();
+    }
+}</code></pre>
+
+                <p><b>Kết quả:</b> 5 tác vụ được xử lý luân phiên bởi 3 luồng trong pool – tiết kiệm và tối ưu CPU.</p>
+
+                <h5>6. Lưu ý khi làm việc với đa luồng</h5>
+                <ul>
+                    <li>Không gọi <code>run()</code> thay vì <code>start()</code>.</li>
+                    <li>Tránh <b>deadlock</b> – hai luồng chờ nhau giải phóng tài nguyên.</li>
+                    <li>Sử dụng <code>volatile</code> cho biến dùng chung.</li>
+                    <li>Khi cần đồng bộ phức tạp, dùng các lớp trong <b>java.util.concurrent</b> như <code>Lock</code>, <code>Semaphore</code>.</li>
+                </ul>
+
+                <h5>7. Kết luận</h5>
+                <p>Đa luồng giúp chương trình Java mạnh mẽ và hiệu quả hơn, nhưng cũng tiềm ẩn rủi ro về lỗi logic nếu không kiểm soát tốt. Nắm vững cơ chế luồng, đồng bộ hóa, và các công cụ như Executor là chìa khóa để viết ứng dụng hiệu năng cao và ổn định.</p>
+
+                <p><b>Mẹo nhỏ:</b> Khi mới học, bạn có thể thử mô phỏng luồng bằng các ví dụ nhỏ như đếm số, tải file giả lập, hoặc in log song song — để hiểu trực quan hơn về cách các luồng hoạt động.</p>
+            </div>
+
+            <div class="back-to-home">
+                <a href="../index.html#blog" class="btn btn-primary btn-sm">
+                    <i class="fa fa-arrow-left"></i> Quay lại Blog
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="copyrights">
+        <p>Bản quyền © 2025 - Thiết kế bởi <b>Đặng Hữu Phước</b></p>
+    </div>
+
+    <div id="scroll-to-top"><i class="fa fa-angle-up"></i></div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(window).scroll(function () {
+            if ($("#mainNav").offset().top > 50) {
+                $("#mainNav").css("background", "#111");
+            } else {
+                $("#mainNav").css("background", "#222");
+            }
+        });
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 200) {
+                $('#scroll-to-top').fadeIn();
+            } else {
+                $('#scroll-to-top').fadeOut();
+            }
+        });
+
+        $('#scroll-to-top').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 800);
+            return false;
+        });
+    </script>
+</body>
+
+</html>

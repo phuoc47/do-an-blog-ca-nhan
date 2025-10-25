@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Xử lý ngoại lệ trong Java | Đặng Hữu Phước</title>
+    <meta name="keywords"
+        content="lập trình, Java, exception, xử lý lỗi, try catch, finally, throw, lập trình viên, HUTECH">
+    <meta name="description"
+        content="Hướng dẫn chi tiết cách xử lý ngoại lệ trong Java bằng try-catch-finally, throw, throws và custom exception.">
+    <meta name="author" content="Đặng Hữu Phước">
+
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+
+    <style>
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        #mainNav {
+            background: #222;
+            transition: background 0.3s;
+        }
+
+        #mainNav .navbar-brand {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff !important;
+        }
+
+        #mainNav .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        #mainNav .nav-link:hover,
+        #mainNav .nav-link.active {
+            color: #007bff !important;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title h3 {
+            font-family: "Courier New", monospace;
+            font-size: 2rem;
+            color: #000;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-title ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .section-title li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .blog-content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .blog-content h4,
+        .blog-content h5 {
+            color: #007bff;
+            font-weight: 600;
+            margin-top: 25px;
+            font-family: "Courier New", monospace;
+        }
+
+        .blog-content pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        .blog-content code {
+            color: #f1fa8c;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .copyrights {
+            background: #222;
+            color: #ccc;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        #scroll-to-top {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            text-align: center;
+            line-height: 45px;
+            display: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #scroll-to-top:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Đặng Hữu Phước</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html#home">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#project">Dự án</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../index.html#blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="blog" class="section">
+        <div class="container">
+            <div class="section-title text-left">
+                <h3>Xử lý ngoại lệ trong Java</h3>
+                <ul>
+                    <li><i class="fa fa-user"></i> bởi admin</li>
+                    <li><i class="fa fa-calendar"></i> 18/10/2025</li>
+                </ul>
+            </div>
+
+            <div class="blog-content">
+                <h5>1. Ngoại lệ là gì?</h5>
+                <p>Trong lập trình, <b>ngoại lệ (Exception)</b> là những lỗi xảy ra trong khi chương trình đang chạy, khiến luồng thực thi bị gián đoạn.  
+                    Ví dụ: chia cho 0, đọc file không tồn tại, hoặc truy cập phần tử mảng ngoài phạm vi.</p>
+
+                <pre><code>int ketQua = 10 / 0; // Lỗi ArithmeticException</code></pre>
+
+                <h5>2. Cấu trúc try - catch cơ bản</h5>
+                <p>Để tránh chương trình bị dừng đột ngột, ta sử dụng khối <b>try-catch</b> để “bắt” ngoại lệ và xử lý phù hợp.</p>
+
+                <pre><code>try {
+    int ketQua = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("Không thể chia cho 0!");
+}</code></pre>
+
+                <p>Trong ví dụ trên, chương trình không bị lỗi dừng, mà thay vào đó in ra thông báo thân thiện cho người dùng.</p>
+
+                <h5>3. Sử dụng nhiều khối catch</h5>
+                <p>Bạn có thể bắt nhiều loại ngoại lệ khác nhau bằng nhiều khối <b>catch</b>.</p>
+
+                <pre><code>try {
+    int[] arr = new int[2];
+    arr[5] = 10;
+} catch (ArithmeticException e) {
+    System.out.println("Lỗi số học!");
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("Truy cập vượt quá kích thước mảng!");
+} catch (Exception e) {
+    System.out.println("Lỗi không xác định: " + e.getMessage());
+}</code></pre>
+
+                <h5>4. Khối finally</h5>
+                <p>Khối <b>finally</b> luôn được thực thi dù có xảy ra ngoại lệ hay không – thường dùng để đóng tài nguyên như file hoặc kết nối cơ sở dữ liệu.</p>
+
+                <pre><code>try {
+    FileReader fr = new FileReader("data.txt");
+} catch (FileNotFoundException e) {
+    System.out.println("Không tìm thấy file!");
+} finally {
+    System.out.println("Đóng tài nguyên.");
+}</code></pre>
+
+                <h5>5. Tự tạo ngoại lệ bằng throw</h5>
+                <p>Java cho phép bạn chủ động ném (throw) ngoại lệ khi gặp tình huống không hợp lệ.</p>
+
+                <pre><code>public static void kiemTraTuoi(int tuoi) {
+    if (tuoi < 18) {
+        throw new IllegalArgumentException("Chưa đủ 18 tuổi!");
+    }
+    System.out.println("Đủ tuổi tham gia!");
+}</code></pre>
+
+                <p>Đoạn code trên sẽ chủ động thông báo lỗi nếu người dùng nhập tuổi không hợp lệ.</p>
+
+                <h5>6. Khai báo ngoại lệ với throws</h5>
+                <p>Nếu một phương thức có thể phát sinh ngoại lệ, ta cần khai báo bằng từ khóa <b>throws</b> để các lớp khác biết và xử lý.</p>
+
+                <pre><code>public void docFile() throws IOException {
+    FileReader file = new FileReader("data.txt");
+}</code></pre>
+
+                <h5>7. Tạo ngoại lệ tùy chỉnh (Custom Exception)</h5>
+                <p>Để rõ ràng và có tính mô-đun cao, bạn có thể tự định nghĩa ngoại lệ riêng cho ứng dụng của mình.</p>
+
+                <pre><code>class TuoiKhongHopLeException extends Exception {
+    public TuoiKhongHopLeException(String message) {
+        super(message);
+    }
+}
+
+public class Demo {
+    static void kiemTra(int tuoi) throws TuoiKhongHopLeException {
+        if (tuoi < 18)
+            throw new TuoiKhongHopLeException("Tuổi không hợp lệ!");
+        else
+            System.out.println("Được phép truy cập!");
+    }
+
+    public static void main(String[] args) {
+        try {
+            kiemTra(16);
+        } catch (TuoiKhongHopLeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}</code></pre>
+
+                <h5>8. Lời khuyên thực tế</h5>
+                <ul>
+                    <li>Không “nuốt” ngoại lệ bằng catch trống – luôn ghi log hoặc thông báo rõ ràng.</li>
+                    <li>Chỉ bắt những ngoại lệ bạn có thể xử lý.</li>
+                    <li>Dùng <b>finally</b> hoặc <b>try-with-resources</b> để đảm bảo tài nguyên được giải phóng.</li>
+                    <li>Tạo custom exception cho các module lớn để dễ bảo trì.</li>
+                </ul>
+
+                <p><b>Tóm lại:</b> Xử lý ngoại lệ không chỉ giúp chương trình an toàn hơn mà còn thể hiện tư duy chuyên nghiệp của lập trình viên Java.  
+                Hãy luôn chuẩn bị cho “tình huống xấu nhất” và viết code dự phòng khéo léo!</p>
+            </div>
+
+            <div class="back-to-home">
+                <a href="../index.html#blog" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left"></i> Quay lại Blog</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="copyrights">
+        <p>Bản quyền © 2025 - Thiết kế bởi <b>Đặng Hữu Phước</b></p>
+    </div>
+
+    <div id="scroll-to-top"><i class="fa fa-angle-up"></i></div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(window).scroll(function () {
+            if ($("#mainNav").offset().top > 50) {
+                $("#mainNav").css("background", "#111");
+            } else {
+                $("#mainNav").css("background", "#222");
+            }
+        });
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 200) {
+                $('#scroll-to-top').fadeIn();
+            } else {
+                $('#scroll-to-top').fadeOut();
+            }
+        });
+
+        $('#scroll-to-top').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 800);
+            return false;
+        });
+    </script>
+</body>
+
+</html>

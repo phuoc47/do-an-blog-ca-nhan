@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khái niệm OOP trong Java | Đặng Hữu Phước</title>
+    <meta name="keywords" content="lập trình, JavaScript, portfolio, lập trình viên, HUTECH, học JavaScript, hướng dẫn JS cơ bản, hàm JavaScript">
+    <meta name="description" content="Hướng dẫn chi tiết cách hiểu, sử dụng và tối ưu hàm trong JavaScript: từ hàm khai báo, biểu thức, mũi tên đến phạm vi và callback.">
+    <meta name="author" content="Đặng Hữu Phước">
+
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+
+    <style>
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        #mainNav {
+            background: #222;
+            transition: background 0.3s;
+        }
+
+        #mainNav .navbar-brand {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff !important;
+        }
+
+        #mainNav .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        #mainNav .nav-link:hover,
+        #mainNav .nav-link.active {
+            color: #007bff !important;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title h3 {
+            font-family: "Courier New", monospace;
+            font-size: 2rem;
+            color: #000;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-title ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .section-title li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .blog-content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .blog-content h4,
+        .blog-content h5 {
+            color: #007bff;
+            font-weight: 600;
+            margin-top: 25px;
+            font-family: "Courier New", monospace;
+        }
+
+        .blog-content pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        .blog-content code {
+            color: #f1fa8c;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .copyrights {
+            background: #222;
+            color: #ccc;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        #scroll-to-top {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            text-align: center;
+            line-height: 45px;
+            display: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #scroll-to-top:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Đặng Hữu Phước</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html#home">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#project">Dự án</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../index.html#blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="blog" class="section">
+        <div class="container">
+            <div class="section-title text-left">
+                <h3>Thành thạo hàm trong JavaScript</h3>
+                <ul>
+                    <li><i class="fa fa-user"></i> bởi admin</li>
+                    <li><i class="fa fa-calendar"></i> 12/10/2025</li>
+                </ul>
+            </div>
+
+            <div class="blog-content">
+                <h5>1. Giới thiệu về hàm</h5>
+                <p>Hàm (Function) trong JavaScript là **trái tim của ngôn ngữ**. Chúng cho phép bạn nhóm các đoạn mã có liên quan lại với nhau để tái sử dụng, giúp mã ngắn gọn và dễ bảo trì hơn.  
+                JavaScript cung cấp nhiều cách khai báo hàm – mỗi loại có ưu và nhược điểm riêng.</p>
+
+                <h5>2. Hàm khai báo (Function Declaration)</h5>
+                <p>Đây là cách khai báo truyền thống và phổ biến nhất.</p>
+                <pre><code>function chao(ten) {
+    console.log("Xin chào, " + ten + "!");
+}
+chao("Phước"); // Kết quả: Xin chào, Phước!
+</code></pre>
+                <p>Ưu điểm của loại hàm này là **hoisted** – tức bạn có thể gọi nó trước khi định nghĩa.</p>
+
+                <h5>3. Hàm biểu thức (Function Expression)</h5>
+                <p>Được gán cho một biến, và không được hoisted.</p>
+                <pre><code>const tong = function(a, b) {
+    return a + b;
+};
+console.log(tong(3, 5)); // Kết quả: 8
+</code></pre>
+                <p>Hàm biểu thức hữu ích khi bạn muốn truyền hàm như một giá trị (ví dụ trong callback).</p>
+
+                <h5>4. Hàm mũi tên (Arrow Function)</h5>
+                <p>Giới thiệu trong ES6, cú pháp ngắn gọn và trực quan hơn.</p>
+                <pre><code>const nhanDoi = x => x * 2;
+console.log(nhanDoi(6)); // 12
+</code></pre>
+                <p>Hàm mũi tên không có <code>this</code> riêng, rất tiện khi dùng trong các callback của sự kiện hoặc Promise.</p>
+
+                <h5>5. Phạm vi (Scope) và Closure</h5>
+                <p>Mỗi hàm trong JavaScript tạo ra một phạm vi riêng, giúp biến bên trong không ảnh hưởng đến bên ngoài.  
+                Khi một hàm con truy cập biến từ hàm cha, nó tạo thành **closure** – một tính năng mạnh mẽ giúp lưu trữ trạng thái.</p>
+                <pre><code>function taoBoDem() {
+    let dem = 0;
+    return function() {
+        dem++;
+        console.log("Giá trị hiện tại: " + dem);
+    };
+}
+const boDem = taoBoDem();
+boDem(); // 1
+boDem(); // 2
+</code></pre>
+
+                <h5>6. Callback và hàm bậc cao</h5>
+                <p>JavaScript cho phép truyền hàm như một đối số – điều này tạo nên **lập trình bất đồng bộ** và **xử lý sự kiện linh hoạt**.</p>
+                <pre><code>function xuLy(ham) {
+    console.log("Bắt đầu xử lý...");
+    ham();
+}
+xuLy(() => console.log("Đã hoàn thành!"));
+</code></pre>
+
+                <h5>7. Tổng kết</h5>
+                <p>Hiểu và sử dụng thành thạo hàm trong JavaScript giúp bạn:
+                <ul>
+                    <li>Tối ưu cấu trúc mã.</li>
+                    <li>Giảm lặp lại logic.</li>
+                    <li>Làm chủ lập trình bất đồng bộ (async/await, promise).</li>
+                </ul>
+                Hãy luyện tập viết nhiều loại hàm khác nhau và thử kết hợp chúng trong các bài toán thực tế – đó là con đường ngắn nhất để trở thành **JavaScript Developer chuyên nghiệp**.</p>
+            </div>
+
+            <div class="back-to-home">
+                <a href="../index.html#blog" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left"></i> Quay lại Blog</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="copyrights">
+        <p>Bản quyền © 2025 - Thiết kế bởi <b>Đặng Hữu Phước</b></p>
+    </div>
+
+    <div id="scroll-to-top"><i class="fa fa-angle-up"></i></div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(window).scroll(function () {
+            if ($("#mainNav").offset().top > 50) {
+                $("#mainNav").css("background", "#111");
+            } else {
+                $("#mainNav").css("background", "#222");
+            }
+        });
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 200) {
+                $('#scroll-to-top').fadeIn();
+            } else {
+                $('#scroll-to-top').fadeOut();
+            }
+        });
+        $('#scroll-to-top').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 800);
+            return false;
+        });
+    </script>
+</body>
+</html>
