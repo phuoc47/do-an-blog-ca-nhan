@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+   
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ 
+    <!-- Site Metas -->
+    <title>Đặng Hữu Phước | Danh mục cá nhân</title>  
+    <meta name="keywords" content="lập trình, Java, JavaScript, portfolio, lập trình viên, HUTECH">
+    <meta name="description" content="Portfolio cá nhân của Đặng Hữu Phước - Sinh viên CNTT HUTECH, đam mê lập trình web và phần mềm.">
+    <meta name="author" content="Đặng Hữu Phước">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+    <script src="js/modernizr.js"></script> <!-- Modernizr -->
+    
+    <style>
+      .full-article {
+        display: none;
+        margin-top: 10px;
+        background: #f8f9fa;
+        padding: 15px;
+        border-left: 3px solid #007bff;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+      .full-article.open {
+        display: block;
+        animation: fadeIn 0.4s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(10px);}
+        to {opacity: 1; transform: translateY(0);}
+      }
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body id="page-top" class="politics_version">
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <div id="main-ld">
+            <div id="loader"></div>  
+        </div>
+    </div><!-- end loader -->
+    <!-- END LOADER -->
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger active" href="#home">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">Giới thiệu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#project">Dự án</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#blog">Blog</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <section id="home" class="main-banner parallaxie" style="background: url('Uploads/avatar.png')">
+        <div class="heading">
+            <h1>Xin chào, tôi là Phước</h1>
+            <p>"Tôi là sinh viên CNTT đam mê lập trình, luôn học hỏi và sáng tạo ra những giá trị từ công nghệ."</p>
+            <h3 class="cd-headline clip is-full-width">
+                <span>Tôi là một </span>
+                <span class="cd-words-wrapper">
+                    <b class="is-visible">Lập trình viên Web</b>
+                    <b>Thiết kế Web</b>
+                    <b>Thiết kế sáng tạo</b>
+                    <b>Thiết kế đồ họa</b>
+                </span>
+            </h3>
+        </div>
+    </section>
+
+    <svg id="clouds" class="hidden-xs" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100" viewBox="0 0 85 100" preserveAspectRatio="none">
+        <path d="M-5 100 Q 0 20 5 100 Z
+            M0 100 Q 5 0 10 100
+            M5 100 Q 10 30 15 100
+            M10 100 Q 15 10 20 100
+            M15 100 Q 20 30 25 100
+            M20 100 Q 25 -10 30 100
+            M25 100 Q 30 10 35 100
+            M30 100 Q 35 30 40 100
+            M35 100 Q 40 10 45 100
+            M40 100 Q 45 50 50 100
+            M45 100 Q 50 20 55 100
+            M50 100 Q 55 40 60 100
+            M55 100 Q 60 60 65 100
+            M60 100 Q 65 50 70 100
+            M65 100 Q 70 20 75 100
+            M70 100 Q 75 45 80 100
+            M75 100 Q 80 30 85 100
+            M80 100 Q 85 20 90 100
+            M85 100 Q 90 50 95 100
+            M90 100 Q 95 25 100 100
+            M95 100 Q 100 15 105 100 Z">
+        </path>
+    </svg>
+
+    <section id="about" class="section wb">
+      <div class="container">
+        <div class="section-title text-left">
+          <h3>Giới thiệu về tôi</h3>
+          <p>Hãy cùng tìm hiểu đôi chút về tôi – người luôn khao khát học hỏi và không ngừng tiến bộ trong lĩnh vực công nghệ thông tin.</p>
+        </div><!-- end title -->
+
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="message-box">
+              <h2>Đặng Hữu Phước</h2>
+              <p><strong>Tuổi:</strong> 21</p>
+              <p><strong>Email:</strong> 47dangphuoc@gmail.com</p>
+              <p><strong>Điện thoại:</strong> 0326 669 840</p>
+              <p><strong>Ngành học:</strong> Công nghệ thông tin – Trường Đại học Công nghệ TP.HCM (HUTECH)</p>
+
+              <p>Tôi là sinh viên năm cuối tại HUTECH, theo học chuyên ngành Công nghệ Thông tin với niềm đam mê đặc biệt dành cho lập trình web và phát triển phần mềm. 
+              Tôi luôn tin rằng công nghệ không chỉ là công cụ, mà còn là cầu nối giúp con người tạo ra giá trị và lan tỏa ý tưởng tốt đẹp.</p>
+
+              <p>Với tinh thần cầu tiến, tôi luôn nỗ lực học hỏi, tìm tòi những công nghệ mới, hướng đến mục tiêu trở thành một lập trình viên toàn diện – vừa vững kỹ năng chuyên môn, vừa có tư duy sáng tạo và khả năng giải quyết vấn đề thực tế.</p>
+
+              <p>Ước mơ của tôi là được góp phần vào những dự án mang lại giá trị cho cộng đồng, đồng thời xây dựng hành trình nghề nghiệp vững chắc trong lĩnh vực công nghệ. 
+              Mỗi dòng code với tôi là một bước tiến nhỏ, nhưng bền vững, hướng đến tương lai mà tôi đang theo đuổi.</p>
+            </div><!-- end messagebox -->
+          </div><!-- end col -->
+
+          <div class="col-md-6">
+            <div class="right-box-pro wow fadeIn">
+              <img src="uploads/avatar.png" alt="Đặng Hữu Phước" class="img-fluid img-rounded shadow-sm">
+            </div><!-- end media -->
+          </div><!-- end col -->
+        </div><!-- end row -->
+      </div><!-- end container -->
+    </section>
+
+    <div id="project" class="section lb">
+        <div class="container">
+            <div class="section-title text-left">
+                <h3>Danh mục dự án</h3>
+                <p>Trưng bày các dự án nhỏ được xây dựng bằng Java và JavaScript.</p>
+            </div><!-- end title -->
+            
+            <div class="gallery-menu row">
+                <div class="col-md-12">
+                    <div class="button-group filter-button-group text-left">
+                        <button class="active" data-filter="*">Tất cả</button>
+                        <button data-filter=".gal_a">Java</button>
+                        <button data-filter=".gal_b">JavaScript</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gallery-list row">
+                <div class="col-md-4 col-sm-6 gallery-grid gal_a">
+                    <div class="gallery-single fix">
+                        <img src="Uploads/java_calculator.png" class="img-fluid" alt="Máy tính Java">
+                        <div class="project-info">
+                            <h4>Máy tính đơn giản (Java)</h4>
+                            <p>Máy tính dòng lệnh được xây dựng bằng Java cho các phép toán cơ bản.</p>
+                            <a href="demos/java_calculator.html" class="btn btn-primary btn-sm" target="_blank">Thử Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 col-sm-6 gallery-grid gal_b">
+                    <div class="gallery-single fix">
+                        <img src="Uploads/js_todo.png" class="img-fluid" alt="Danh sách việc cần làm JavaScript">
+                        <div class="project-info">
+                            <h4>Danh sách việc cần làm (JavaScript)</h4>
+                            <p>Ứng dụng web danh sách việc cần làm động với lưu trữ cục bộ.</p>
+                            <a href="demos/js_todo.html" class="btn btn-primary btn-sm" target="_blank">Thử Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 col-sm-6 gallery-grid gal_a">
+                    <div class="gallery-single fix">
+                        <img src="Uploads/java_tictactoe.png" class="img-fluid" alt="Cờ caro Java">
+                        <div class="project-info">
+                            <h4>Cờ caro (Java)</h4>
+                            <p>Trò chơi cờ caro hai người với giao diện Java Swing.</p>
+                            <a href="demos/java_tictactoe.html" class="btn btn-primary btn-sm" target="_blank">Thử Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 col-sm-6 gallery-grid gal_b">
+                    <div class="gallery-single fix">
+                        <img src="Uploads/js_weather.png" class="img-fluid" alt="Ứng dụng thời tiết JavaScript">
+                        <div class="project-info">
+                            <h4>Ứng dụng thời tiết (JavaScript)</h4>
+                            <p>Ứng dụng lấy dữ liệu thời tiết thời gian thực bằng JavaScript và API công cộng.</p>
+                            <a href="demos/js_weather.html" class="btn btn-primary btn-sm" target="_blank">Thử Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 col-sm-6 gallery-grid gal_a">
+                    <div class="gallery-single fix">
+                        <img src="Uploads/java_library.png" class="img-fluid" alt="Hệ thống thư viện Java">
+                        <div class="project-info">
+                            <h4>Hệ thống quản lý thư viện (Java)</h4>
+                            <p>Hệ thống quản lý thư viện cơ bản với các thao tác CRUD.</p>
+                            <a href="demos/java_library.html" class="btn btn-primary btn-sm" target="_blank">Thử Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 col-sm-6 gallery-grid gal_b">
+                    <div class="gallery-single fix">
+                        <img src="Uploads/js_quiz.png" class="img-fluid" alt="Ứng dụng trắc nghiệm JavaScript">
+                        <div class="project-info">
+                            <h4>Ứng dụng trắc nghiệm (JavaScript)</h4>
+                            <p>Ứng dụng trắc nghiệm tương tác với HTML/CSS.</p>
+                            <a href="demos/js_quiz.html" class="btn btn-primary btn-sm" target="_blank">Thử Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- BLOG SECTION -->
+    <div id="blog" class="section lb">
+      <div class="container">
+        <div class="section-title text-left">
+          <h3>Blog</h3>
+          <p>Kiến thức và hướng dẫn về lập trình Java và JavaScript.</p>
+        </div>
+
+        <div class="row" id="blogContainer">
+          <!-- Bài 1 -->
+          <div class="col-md-4 col-sm-6 col-lg-4">
+            <div class="post-box">
+              <div class="post-info">
+                <h4>Bắt đầu với Java cơ bản</h4>
+                <ul>
+                  <li>bởi admin</li>
+                  <li>10/10/2025</li>
+                </ul>
+                <p>Tìm hiểu nền tảng lập trình Java, cú pháp và cấu trúc.</p>
+                <button class="btn btn-primary btn-sm readmore" data-id="1">Đọc thêm</button>
+                <div class="full-article" id="article-1"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bài 2 -->
+          <div class="col-md-4 col-sm-6 col-lg-4">
+            <div class="post-box">
+              <div class="post-info">
+                <h4>Thành thạo hàm trong JavaScript</h4>
+                <ul>
+                  <li>bởi admin</li>
+                  <li>12/10/2025</li>
+                </ul>
+                <p>Khám phá sâu về hàm khai báo, biểu thức và hàm mũi tên.</p>
+                <button class="btn btn-primary btn-sm readmore" data-id="2">Đọc thêm</button>
+                <div class="full-article" id="article-2"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bài 3 -->
+          <div class="col-md-4 col-sm-6 col-lg-4">
+            <div class="post-box">
+              <div class="post-info">
+                <h4>Khái niệm OOP trong Java</h4>
+                <ul>
+                  <li>bởi admin</li>
+                  <li>14/10/2025</li>
+                </ul>
+                <p>Tìm hiểu các nguyên tắc lập trình hướng đối tượng trong Java.</p>
+                <button class="btn btn-primary btn-sm readmore" data-id="3">Đọc thêm</button>
+                <div class="full-article" id="article-3"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bài 4 -->
+          <div class="col-md-4 col-sm-6 col-lg-4">
+            <div class="post-box">
+              <div class="post-info">
+                <h4>Hiểu về Async/Await trong JavaScript</h4>
+                <ul>
+                  <li>bởi admin</li>
+                  <li>15/10/2025</li>
+                </ul>
+                <p>Lập trình bất đồng bộ với Promise và async/await.</p>
+                <button class="btn btn-primary btn-sm readmore" data-id="4">Đọc thêm</button>
+                <div class="full-article" id="article-4"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bài 5 -->
+          <div class="col-md-4 col-sm-6 col-lg-4">
+            <div class="post-box">
+              <div class="post-info">
+                <h4>Java Collections Framework</h4>
+                <ul>
+                  <li>bởi admin</li>
+                  <li>16/10/2025</li>
+                </ul>
+                <p>Thành thạo List, Set và Map trong Java.</p>
+                <button class="btn btn-primary btn-sm readmore" data-id="5">Đọc thêm</button>
+                <div class="full-article" id="article-5"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bài 6 -->
+          <div class="col-md-4 col-sm-6 col-lg-4">
+            <div class="post-box">
+              <div class="post-info">
+                <h4>Thao tác DOM với JavaScript</h4>
+                <ul>
+                  <li>bởi admin</li>
+                  <li>17/10/2025</li>
+                </ul>
+                <p>Cập nhật trang web động bằng JavaScript.</p>
+                <button class="btn btn-primary btn-sm readmore" data-id="6">Đọc thêm</button>
+                <div class="full-article" id="article-6"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bài 7 -->
+          <div class="col-md-4 col-sm-6 col-lg-4">
+            <div class="post-box">
+              <div class="post-info">
+                <h4>Xử lý ngoại lệ trong Java</h4>
+                <ul>
+                  <li>bởi admin</li>
+                  <li>18/10/2025</li>
+                </ul>
+                <p>Xử lý lỗi một cách an toàn bằng khối try-catch.</p>
+                <button class="btn btn-primary btn-sm readmore" data-id="7">Đọc thêm</button>
+                <div class="full-article" id="article-7"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bài 8 -->
+          <div class="col-md-4 col-sm-6 col-lg-4">
+            <div class="post-box">
+              <div class="post-info">
+                <h4>Những tính năng mới trong ES6 JavaScript</h4>
+                <ul>
+                  <li>bởi admin</li>
+                  <li>19/10/2025</li>
+                </ul>
+                <p>Khám phá let, const, hàm mũi tên, destructuring và hơn thế nữa.</p>
+                <button class="btn btn-primary btn-sm readmore" data-id="8">Đọc thêm</button>
+                <div class="full-article" id="article-8"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bài 9 -->
+          <div class="col-md-4 col-sm-6 col-lg-4">
+            <div class="post-box">
+              <div class="post-info">
+                <h4>Đa luồng trong Java</h4>
+                <ul>
+                  <li>bởi admin</li>
+                  <li>20/10/2025</li>
+                </ul>
+                <p>Chạy nhiều tác vụ đồng thời trong Java.</p>
+                <button class="btn btn-primary btn-sm readmore" data-id="9">Đọc thêm</button>
+                <div class="full-article" id="article-9"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyrights">
+        <div class="container">
+            <div class="footer-distributed">
+                <div class="footer-left">
+                    <p class="footer-company-name">Bản quyền thuộc về &copy; 2025 - Thiết kế bởi: Đặng Hữu Phước</p>
+                </div>
+            </div>
+        </div><!-- end container -->
+    </div><!-- end copyrights -->
+
+    <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+
+    <!-- ALL JS FILES -->
+    <script src="js/all.js"></script>
+    <!-- Camera Slider -->
+    <script src="js/jquery.mobile.customized.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script> 
+    <script src="js/parallaxie.js"></script>
+    <script src="js/headline.js"></script>
+    <!-- Contact form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="js/custom.js"></script>
+    <script src="js/jquery.vide.js"></script>
+
+    <!-- JS -->
+    <script>
+      const fullArticles = {
+        1: `
+          <h5>Bắt đầu với Java cơ bản</h5>
+          <p>Java là một trong những ngôn ngữ lập trình phổ biến nhất thế giới, được sử dụng rộng rãi cho ứng dụng desktop, di động và doanh nghiệp. Để bắt đầu, hãy cài đặt JDK, thiết lập IDE và hiểu cấu trúc cú pháp cơ bản.</p>
+          <p><b>Khái niệm chính:</b> Biến, kiểu dữ liệu, toán tử, câu lệnh điều kiện và vòng lặp.</p>
+          <p>Khi đã quen với những kiến thức cơ bản, hãy thử viết các chương trình đơn giản như tính diện tích, xử lý đầu vào người dùng hoặc hiển thị mẫu. Những bài tập nền tảng này sẽ giúp bạn củng cố hiểu biết trước khi chuyển sang Lập trình hướng đối tượng.</p>
+        `,
+        2: `
+          <h5>Thành thạo hàm trong JavaScript</h5>
+          <p>Hàm là khối xây dựng cốt lõi của JavaScript. Chúng cho phép bạn viết mã tái sử dụng và có tổ chức. Có ba loại chính: khai báo, biểu thức và hàm mũi tên.</p>
+          <p><b>Ví dụ:</b></p>
+          <pre><code>const chao = (ten) => console.log("Xin chào, " + ten);</code></pre>
+          <p>Hiểu cách hàm xử lý phạm vi, tham số và giá trị trả về sẽ nâng cao kỹ năng JavaScript của bạn lên một tầm cao mới.</p>
+        `,
+        3: `
+          <h5>Khái niệm OOP trong Java</h5>
+          <p>Java được xây dựng dựa trên các nguyên tắc Lập trình hướng đối tượng (OOP): đóng gói, kế thừa, đa hình và trừu tượng. Mỗi nguyên tắc giúp bạn tạo phần mềm có khả năng mở rộng, tái sử dụng và dễ bảo trì.</p>
+          <p><b>Ví dụ:</b> Lớp Xe hơi với các thuộc tính và phương thức định nghĩa hành vi của nó.</p>
+          <p>Khi nắm vững OOP, bạn có thể thiết kế hệ thống hiệu quả hơn bằng cách suy nghĩ theo đối tượng thực tế.</p>
+        `,
+        4: `
+          <h5>Hiểu về Async/Await trong JavaScript</h5>
+          <p>Async/Await cho phép mã bất đồng bộ trông giống như đồng bộ, cải thiện khả năng đọc. Thay vì nối chuỗi nhiều lệnh .then(), bạn có thể dùng await bên trong hàm async.</p>
+          <pre><code>async function layDuLieu() {
+  const res = await fetch('api/data');
+  const data = await res.json();
+  console.log(data);
+}</code></pre>
+          <p>Luôn xử lý lỗi bằng try...catch để tránh các lỗi không được xử lý.</p>
+        `,
+        5: `
+          <h5>Java Collections Framework</h5>
+          <p>Java Collections Framework (JCF) cung cấp các công cụ mạnh mẽ để lưu trữ và xử lý dữ liệu. Các giao diện cốt lõi bao gồm List, Set và Map.</p>
+          <p><b>Ví dụ:</b> Sử dụng ArrayList cho mảng động và HashMap cho lưu trữ khóa-giá trị.</p>
+          <p>Hiểu khi nào dùng loại nào sẽ cải thiện hiệu suất và độ rõ ràng của mã.</p>
+        `,
+        6: `
+          <h5>Thao tác DOM với JavaScript</h5>
+          <p>Document Object Model (DOM) đại diện cho cấu trúc của một trang web. JavaScript có thể sửa đổi các phần tử động để tạo trải nghiệm người dùng tương tác.</p>
+          <pre><code>document.getElementById("title").textContent = "Tiêu đề đã cập nhật";</code></pre>
+          <p>Với thao tác DOM, bạn có thể tạo hiệu ứng, ẩn/hiện phần tử hoặc xây dựng ứng dụng một trang.</p>
+        `,
+        7: `
+          <h5>Xử lý ngoại lệ trong Java</h5>
+          <p>Xử lý ngoại lệ đảm bảo chương trình của bạn tiếp tục chạy mượt mà ngay cả khi xảy ra sự cố bất ngờ.</p>
+          <pre><code>try {
+  int ketQua = 10 / 0;
+} catch (ArithmeticException e) {
+  System.out.println("Không thể chia cho 0!");
+}</code></pre>
+          <p>Luôn xử lý ngoại lệ một cách thông minh để tăng độ ổn định cho ứng dụng Java.</p>
+        `,
+        8: `
+          <h5>Những tính năng mới trong ES6 JavaScript</h5>
+          <p>ES6 giới thiệu các tính năng cú pháp hiện đại như let/const, chuỗi mẫu, destructuring và hàm mũi tên. Chúng giúp mã ngắn gọn và dễ đọc hơn.</p>
+          <pre><code>const nguoiDung = {ten: "Alex", tuoi: 25};
+const {ten, tuoi} = nguoiDung;</code></pre>
+          <p>Học ES6 là điều cần thiết để viết JavaScript hiện đại, hiệu quả.</p>
+        `,
+        9: `
+          <h5>Đa luồng trong Java</h5>
+          <p>Đa luồng cho phép Java thực hiện nhiều tác vụ đồng thời, cải thiện hiệu suất cho các ứng dụng nặng về CPU.</p>
+          <pre><code>class LuongCuaToi extends Thread {
+  public void run() {
+    System.out.println("Đang chạy luồng...");
+  }
+}</code></pre>
+          <p>Quản lý luồng đúng cách đảm bảo đồng bộ và tránh xung đột tài nguyên.</p>
+        `
+      };
+
+      document.querySelectorAll(".readmore").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.id;
+          const articleDiv = document.getElementById(`article-${id}`);
+          if (articleDiv.classList.contains("open")) {
+            articleDiv.classList.remove("open");
+            articleDiv.innerHTML = "";
+            btn.textContent = "Đọc thêm";
+          } else {
+            articleDiv.innerHTML = fullArticles[id];
+            articleDiv.classList.add("open");
+            btn.textContent = "Thu gọn";
+          }
+        });
+      });
+    </script>
+</body>
+</html>

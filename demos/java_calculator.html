@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beautiful Calculator</title>
+  <style>
+    /* Tổng thể */
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      width: 350px;
+      transition: all 0.3s ease;
+    }
+
+    h1 {
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 90%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #007bff;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    button {
+      width: 60px;
+      height: 60px;
+      border: none;
+      border-radius: 50%;
+      margin: 8px;
+      background: linear-gradient(135deg, #007bff, #00d4ff);
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.2s;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+    }
+
+    button:active {
+      transform: scale(0.95);
+      box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #333;
+      min-height: 28px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    #result.show {
+      opacity: 1;
+    }
+
+    .clear-btn {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
+    }
+
+    .clear-btn:hover {
+      box-shadow: 0 6px 12px rgba(255, 65, 108, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Simple Calculator</h1>
+    <input type="text" id="num1" placeholder="Enter first number">
+    <input type="text" id="num2" placeholder="Enter second number">
+    <div class="buttons">
+      <button onclick="calculate('+')">+</button>
+      <button onclick="calculate('-')">−</button>
+      <button onclick="calculate('*')">×</button>
+      <button onclick="calculate('/')">÷</button>
+      <button class="clear-btn" onclick="resetCalc()">C</button>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const resultDiv = document.getElementById('result');
+
+    function calculate(operator) {
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+
+      if (isNaN(num1) || isNaN(num2)) {
+        showResult('⚠️ Please enter valid numbers', true);
+        return;
+      }
+
+      let result;
+      switch (operator) {
+        case '+':
+          result = num1 + num2;
+          break;
+        case '-':
+          result = num1 - num2;
+          break;
+        case '*':
+          result = num1 * num2;
+          break;
+        case '/':
+          if (num2 === 0) {
+            showResult('🚫 Cannot divide by zero', true);
+            return;
+          }
+          result = num1 / num2;
+          break;
+      }
+
+      showResult(`✅ Result: ${result}`);
+    }
+
+    function showResult(message, isError = false) {
+      resultDiv.textContent = message;
+      resultDiv.style.color = isError ? '#e63946' : '#333';
+      resultDiv.classList.add('show');
+    }
+
+    function resetCalc() {
+      document.getElementById('num1').value = '';
+      document.getElementById('num2').value = '';
+      resultDiv.textContent = '';
+      resultDiv.classList.remove('show');
+    }
+
+    // Cho phép nhấn Enter để tính toán nhanh
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        calculate('+');
+      }
+    });
+  </script>
+</body>
+</html>

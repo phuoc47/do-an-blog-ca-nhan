@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hệ Thống Quản Lý Thư Viện</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #8e9eab, #eef2f3);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      padding: 30px;
+      width: 100%;
+      max-width: 550px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      outline: none;
+    }
+
+    button {
+      padding: 12px;
+      background: linear-gradient(135deg, #007bff, #00c6ff);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background: #f8f9fa;
+      border-left: 5px solid #007bff;
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    li:hover {
+      background: #e9f2ff;
+      transform: translateY(-2px);
+    }
+
+    .delete-btn {
+      background: #ff4b5c;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .delete-btn:hover {
+      background: #e63946;
+    }
+
+    .notification {
+      text-align: center;
+      font-size: 15px;
+      margin-top: 10px;
+      color: #28a745;
+      opacity: 0;
+      animation: fadeInOut 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📚 Thư Viện Mini</h1>
+    <div class="inputs">
+      <input type="text" id="bookTitle" placeholder="Nhập tên sách..." />
+      <input type="text" id="bookAuthor" placeholder="Nhập tên tác giả..." />
+      <button onclick="addBook()">Thêm Sách</button>
+    </div>
+
+    <ul id="bookList"></ul>
+    <div id="notification" class="notification"></div>
+  </div>
+
+  <script>
+    // --- Khởi tạo từ LocalStorage ---
+    let books = JSON.parse(localStorage.getItem("books")) || [];
+
+    function showNotification(message, color = "#28a745") {
+      const noti = document.getElementById("notification");
+      noti.textContent = message;
+      noti.style.color = color;
+      noti.style.animation = "none";
+      void noti.offsetWidth; // reset animation
+      noti.style.animation = "fadeInOut 2s ease forwards";
+    }
+
+    function loadBooks() {
+      const bookList = document.getElementById("bookList");
+      bookList.innerHTML = "";
+      books.forEach((book, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span><strong>${book.title}</strong> — ${book.author}</span>`;
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Xóa";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.onclick = () => deleteBook(index);
+        li.appendChild(deleteBtn);
+        bookList.appendChild(li);
+      });
+      localStorage.setItem("books", JSON.stringify(books));
+    }
+
+    function addBook() {
+      const title = document.getElementById("bookTitle").value.trim();
+      const author = document.getElementById("bookAuthor").value.trim();
+
+      if (!title || !author) {
+        showNotification("Vui lòng nhập đầy đủ thông tin!", "#dc3545");
+        return;
+      }
+
+      books.push({ title, author });
+      document.getElementById("bookTitle").value = "";
+      document.getElementById("bookAuthor").value = "";
+      showNotification("✅ Thêm sách thành công!");
+      loadBooks();
+    }
+
+    function deleteBook(index) {
+      const removed = books.splice(index, 1);
+      showNotification(`🗑️ Đã xóa "${removed[0].title}"`);
+      loadBooks();
+    }
+
+    // Tải dữ liệu khi trang mở
+    loadBooks();
+  </script>
+</body>
+</html>
